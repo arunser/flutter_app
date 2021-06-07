@@ -17,7 +17,7 @@ class TopBar extends StatelessWidget {
           CircleAvatar(
             radius: 40,
             backgroundImage: NetworkImage(
-                'https://c4.wallpaperflare.com/wallpaper/196/211/612/naruto-boruto-anime-mangeky%C5%8D-sharingan-red-sharingan-naruto-hd-wallpaper-preview.jpg'),
+                'https://images.unsplash.com/photo-1623038896180-d81dd785a60f?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
           ),
           const SizedBox(width: 10),
           Column(

@@ -1,8 +1,41 @@
+import 'package:app_ola/model/photos_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 import 'widgets/top_bar.dart';
+import 'package:app_ola/env/keys.dart' as config;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<PhotosModel> _photosData = [];
+
+  Future<void> _fetchPhotos() async {
+    final _dioInstance = Dio();
+
+    _dioInstance.options.headers['Authorization'] =
+        "Client-ID ${config.unsplashKey}";
+
+    final _fetchData =
+        await _dioInstance.get('https://api.unsplash.com/photos');
+
+    for (var _items in _fetchData.data) {
+      setState(() {
+        _photosData.add(
+            PhotosModel(id: _items['id'], imgURL: _items['urls']['regular']));
+      });
+    }
+    print('object');
+  }
+
+  @override
+  void initState() {
+    _fetchPhotos();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,15 +45,15 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TopBar(
-            title: 'Naruto World',
-            subtitle: 'Visual Jutsu',
+            title: 'Arun P Madhu',
+            subtitle: 'Aspiring Developer',
             color: Color(0xff993333),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
-            'Types of Sharingan',
+            'Unsplash Photos',
             style: TextStyle(fontSize: 22, color: Colors.brown),
           ),
           const SizedBox(
@@ -28,14 +61,14 @@ class HomePage extends StatelessWidget {
           ),
           GridView.builder(
             padding: EdgeInsets.all(10),
-            itemCount: 4,
+            itemCount: _photosData.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 2),
             itemBuilder: (ctx, index) => Container(
               child: Image.network(
-                'https://4.bp.blogspot.com/-Gt1kbinvp6s/WEa2dOsVUpI/AAAAAAAAJTo/0jzG9wH4Zm0UPKhsPKPGptsOm63grCU0ACLcB/s1600/6%2BNon-Uchiha%2BTo%2BHave%2BWielded%2BA%2BSharingan.png',
+                _photosData[index].imgURL,
                 fit: BoxFit.cover,
               ),
             ),
