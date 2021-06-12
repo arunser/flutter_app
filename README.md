@@ -1,5 +1,6 @@
 # app_ola
 
-A new Flutter project.
+A simple Photo app
 
-Day 6 codes
+Made as a part of Flutter Bootcamp 2021
+
