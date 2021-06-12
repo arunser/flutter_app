@@ -1,4 +1,4 @@
-# app_ola
+# first_app
 
 A simple Photo app
 
